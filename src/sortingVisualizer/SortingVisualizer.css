@@ -1,0 +1,38 @@
+.bar-wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  transform: rotate(180deg);
+  background-color: rgb(216, 216, 224);
+  padding-top: 10em;
+  padding-bottom: 2em;
+}
+
+.bar {
+  margin: 3px;
+  /* background-color: rgb(60, 166, 236); */
+  width: 3px;
+}
+
+.btn-wrapper {
+  display: flex;
+  justify-content: space-between;
+  padding: 2em 30em;
+  background: #34495e;
+}
+
+.btn {
+  border-radius: 3px;
+  color: rgba(85, 147, 172);
+  border: 2px solid rgba(85, 147, 172, 0.548);
+  padding: 0.7em;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 2px 1px 3px #2d2d2d;
+}
+
+.btn:hover {
+  cursor: pointer;
+  background-color: rgb(85, 147, 172);
+  color: white;
+}
