@@ -1,6 +1,6 @@
 import React from 'react'; 
 import './SortingVisualizer.css'; 
-import {bubbleSort} from './SortingAlgorithms.js'; 
+import {bubbleSort, getMergeSortAnimations} from './SortingAlgorithms.js'; 
 
 
 const  BASE_COLOR = 'rgb(60, 166, 236)';
@@ -16,7 +16,7 @@ class SortingVisualizer extends React.Component {
         this.state = {  
             array: [], 
             active: true,
-            animationSpeed : 100
+            animationSpeed : 10
         }
     }
 
@@ -80,8 +80,37 @@ class SortingVisualizer extends React.Component {
     }
 
     mergeSort(){
-        alert("Not implemented yet...");
-        //TODO 
+        const {array} = this.state; 
+        const animations = getMergeSortAnimations(array, 0, array.length-1); 
+        
+        //console.log(isArrayAreEquals(array.sort((a,b)=> a-b), animations)); 
+
+        for(let j=0; j<animations.length; j++){
+            
+                const arrayBars = document.getElementsByClassName('bar');
+                const isColorChange = j % 3 !== 2; 
+
+                if(isColorChange){
+                    const[barIdxOne, barIdxTwo] = animations[j]; 
+                    //highlight consider bar   
+                    let barStyleOne = arrayBars[barIdxOne].style; 
+                    let barStyleTwo = arrayBars[barIdxTwo].style; 
+
+                    const color = j % 3 === 0 ? SECONDARY_COLOR : BASE_COLOR; 
+                    setTimeout(() => { 
+                        barStyleOne.backgroundColor = color; 
+                        barStyleTwo.backgroundColor = color; 
+                    }, j * this.state.animationSpeed);
+                } 
+                else {
+                    setTimeout(() => { 
+                        const[barIdxTarget, newHeight] = animations[j]; 
+                        let barStyleTarget = arrayBars[barIdxTarget].style; 
+                        barStyleTarget.height = newHeight+'px'; 
+                    }, j * this.state.animationSpeed);
+                }            
+        }
+        console.log(animations);
     }
 
     quickSort(){
