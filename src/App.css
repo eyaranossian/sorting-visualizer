@@ -1,8 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
+
 .App {
   margin: auto 0;
 }
 
 html,
 body {
+  font-family: "monospace";
   overflow: hidden;
+}
+
+footer {
+  height: 50em;
+  background-color: rgb(216, 216, 224);
 }

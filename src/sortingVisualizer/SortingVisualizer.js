@@ -3,10 +3,12 @@ import './SortingVisualizer.css';
 import {bubbleSort} from './SortingAlgorithms.js'; 
 
 
-const  PRIMARY_COLOR = '';
-const  SECONDARY_COLOR = '';
-const  SORTED_COLOR = '';
+const  BASE_COLOR = 'rgb(60, 166, 236)';
+const  PRIMARY_COLOR = 'green';
+const  SECONDARY_COLOR = 'red';
+const  SORTED_COLOR = 'rgba(169, 92, 232, 0.8)';
 const  NUMBER_OF_BARS = 100;
+const  ANIMATION_SPEED_MS = 100;
 
 class SortingVisualizer extends React.Component {
     
@@ -14,67 +16,97 @@ class SortingVisualizer extends React.Component {
         super(props);
         this.state = {  
             array: [], 
+            active: true,
+            animationSpeed : 100
         }
     }
 
     componentDidMount(){
-        this.resetArray(); 
+        this.resetArray(0); 
     }
 
     bubbleSort(){
-        
+        this.toggleBtn(); 
+
         const animations = bubbleSort(this.state.array);
-        
         console.log(animations); 
-    
+        
             for(let j=0; j<animations.length;j++){
-
-                const arrayBars = document.getElementsByClassName('bar');
-                
-                const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
-                
-                let barStyleOne = arrayBars[barIdxOne].style; 
-                let barStyleTwo = arrayBars[barIdxTwo].style; 
-
                 setTimeout(() => { 
+                    const arrayBars = document.getElementsByClassName('bar');
+        
+                    const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
 
+                    //Reset to base color previous bar
                     if(j !== 0){
                         const[prevBarIdxOne, prevBarIdxTwo] = animations[j-1]; 
                     
                         let prevBarStyleOne = arrayBars[prevBarIdxOne].style; 
                         let prevBarStyleTwo = arrayBars[prevBarIdxTwo].style; 
                             
-                        prevBarStyleOne.backgroundColor = 'rgb(60, 166, 236)';    
-                        prevBarStyleTwo.backgroundColor = 'rgb(60, 166, 236)';    
+                        prevBarStyleOne.backgroundColor = BASE_COLOR;    
+                        prevBarStyleTwo.backgroundColor = BASE_COLOR;    
                     }   
-
-                    barStyleOne.backgroundColor = 'red';    
-                    barStyleTwo.backgroundColor = 'red';
-
+                    //highlight consider bar 
+                    let barStyleOne = arrayBars[barIdxOne].style; 
+                    let barStyleTwo = arrayBars[barIdxTwo].style; 
+                    barStyleOne.backgroundColor = PRIMARY_COLOR;    
+                    barStyleTwo.backgroundColor = PRIMARY_COLOR;      
+                    
+                    // if swapped - change hightlight color and swap height
                     if(swapped){
+        
+                        barStyleOne.backgroundColor = SECONDARY_COLOR;    
+                        barStyleTwo.backgroundColor = SECONDARY_COLOR;
+                        
                         let temp = barStyleOne.height; 
                         barStyleOne.height = barStyleTwo.height;    
-                        barStyleTwo.height = temp;        
+                        barStyleTwo.height = temp;      
                     }
 
-                }, j * 10);
+                    //to clean color on the last 2 considered bars 
+                    if( j === (animations.length-1)){
+                        const[prevBarIdxOne, prevBarIdxTwo] = animations[j]; 
+                    
+                        let prevBarStyleOne = arrayBars[prevBarIdxOne].style; 
+                        let prevBarStyleTwo = arrayBars[prevBarIdxTwo].style; 
+                            
+                        prevBarStyleOne.backgroundColor = BASE_COLOR;    
+                        prevBarStyleTwo.backgroundColor = BASE_COLOR;    
+                    }
+                }, j * this.state.animationSpeed);
             }
 
-        //Not correct anymore because bubbleSort returns an array of animations 
-        //console.log(isArrayAreEquals(sortedArrayFromJs, sortedArray)); 
+        this.toggleBtn(); 
     }
 
     mergeSort(){
-
+        //TODO 
     }
 
     quickSort(){
-
+        //TODO 
     }
 
-    resetArray(){
+    toggleBtn(){
+        //DOES NOT WORK IF CALLED FROM SORT FUNCTION BUT OK FROM onClick btn event.... 
+        this.setState((currentState) => ({ 
+                active : !currentState.active, 
+        }));
+    }
+
+    handleChange(e){
+        let animationSpeed = 101 - (e.currentTarget.valueAsNumber)
+        this.setState({animationSpeed})
+        this.resetArray(e.currentTarget.valueAsNumber); 
+    }
+
+    resetArray(nbrBar){
+        if(nbrBar == 0){
+            nbrBar = NUMBER_OF_BARS
+        }
         const array = []; 
-        for(let i=0; i<50; i++){
+        for(let i=0; i<nbrBar; i++){
             array.push(randomIntFromInterval(5, 730))
         }
         this.setState({array}); 
@@ -85,18 +117,33 @@ class SortingVisualizer extends React.Component {
         const {array} = this.state; 
         return (  
             <>
-            <div className="btn-wrapper"> 
-                <button className="btn" onClick={() => this.resetArray()}> Generate new array </button>
-                <button className="btn" onClick={() => this.bubbleSort()}> Bubble Sort </button>
-                <button className="btn" onClick={() => this.mergeSort()}> Merge Sort </button>
-                <button className="btn" onClick={() => this.quickSort()}> Quick Sort </button>
+            <div className="header-wrapper">
+                <div className="title-wrapper"> 
+                    <h2> <a href="/" className="title">Sorting Visualiser</a> </h2>
+                </div>
+                <div className="range-wrapper">
+                    <input 
+                        type="range"
+                        min="0" 
+                        max="100"
+                        onChange={(e) => this.handleChange(e)}
+                    /> 
+                </div> 
+
+                <div className="btn-wrapper"> 
+                    <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.resetArray()}> Generate new array </button>
+                    <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.bubbleSort()}> Bubble Sort </button>
+                    <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.mergeSort()}> Merge Sort </button>
+                    <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.quickSort()}> Quick Sort </button>
+                </div>
             </div>
 
             <div className="bar-wrapper"> 
             {array.map((value, idx) => (
-                    <div className="bar" key={idx}  style={{height: value + 'px', backgroundColor: 'rgb(60, 166, 236)'}}> </div>            
+                    <div className="bar" key={idx}  style={{height: value + 'px'}}> </div>            
                 ))}
             </div>
+            <footer> </footer>
             </>
         );
     }

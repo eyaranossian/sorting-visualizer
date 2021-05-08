@@ -19,8 +19,8 @@
     return auxArray; 
 } */
 
-export function bubbleSort(array){
-/* Instead of returning array of sorted value, will return an array of animations*/ 
+/* export function bubbleSort(array){
+/* Instead of returning array of sorted value, will return an array of animations
 
     console.log("In bubble sort/animations from sortingAl.js")
     
@@ -47,8 +47,33 @@ export function bubbleSort(array){
         if (globalSwapped !== true)
             break; 
     }
-    console.log(array);
-    console.log(auxArray);
-
     return animations; 
 }
+ */
+export function bubbleSort(array){
+    /* Instead of returning array of sorted value, will return an array of animations*/ 
+    
+        console.log("In bubble sort/animations from sortingAl.js")
+        
+        let animations = []; 
+    
+        let auxArray = array.slice(); 
+        let size = auxArray.length; 
+        let sorted = false; 
+        while(!sorted){
+            sorted = true;
+            for(let j=0; j < (size-1); j++){
+                let swapped = false;     
+                if(auxArray[j] > auxArray[j+1]){
+                    let temp = auxArray[j];
+                    auxArray[j] = auxArray[j+1];
+                    auxArray[j+1] = temp; 
+                    swapped = true; 
+                    sorted = false; 
+                }
+                animations.push([j,j+1, swapped]); 
+            }
+            
+        }
+        return animations; 
+    }
