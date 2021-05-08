@@ -112,6 +112,7 @@ class SortingVisualizer extends React.Component {
         }
         this.setState({array}); 
     }
+
     render() { 
 
         const {array} = this.state; 
@@ -136,7 +137,7 @@ class SortingVisualizer extends React.Component {
                 </div> 
 
                 <div className="btn-wrapper"> 
-                    <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.resetArray()}> Generate new array </button>
+                    {/* <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.resetArray()}> Generate new array </button> */}
                     <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.bubbleSort()}> Bubble Sort </button>
                     <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.mergeSort()}> Merge Sort </button>
                     <button className={`btn ${this.state.active === false ? 'notActive' : ''}`} onClick={() => this.quickSort()}> Quick Sort </button>
