@@ -81,10 +81,12 @@ class SortingVisualizer extends React.Component {
     }
 
     mergeSort(){
+        alert("Not implemented yet...");
         //TODO 
     }
 
     quickSort(){
+        alert("Not implemented yet...");
         //TODO 
     }
 
@@ -122,6 +124,11 @@ class SortingVisualizer extends React.Component {
                     <h2> <a href="/" className="title">Sorting Visualiser</a> </h2>
                 </div>
                 <div className="range-wrapper">
+                    <div className="text-wrapper"> 
+                        <p>Change array size & </p>
+                        &nbsp; <p>sorting speed</p>
+                    </div>
+                    
                     <input 
                         type="range"
                         min="0" 

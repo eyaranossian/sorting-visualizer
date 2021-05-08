@@ -1,5 +1,6 @@
 :root {
   --btn-color: rgba(85, 147, 172);
+  --text-color: rgb(241, 241, 248);
 }
 
 .bar-wrapper {
@@ -36,7 +37,7 @@
 }
 
 .title {
-  color: rgb(216, 216, 224);
+  color: var(--text-color);
   text-shadow: 1px 1px 1px rgb(49, 49, 49);
   text-decoration: none;
 }
@@ -56,6 +57,13 @@
 
 .range-wrapper {
   margin-right: 5em;
+  display: flex;
+}
+
+.text-wrapper {
+  display: flex;
+  margin: 0 2em;
+  color: var(--text-color);
 }
 
 .btn {
@@ -71,7 +79,7 @@
 .btn:hover {
   cursor: pointer;
   background-color: rgb(85, 147, 172);
-  color: white;
+  color: var(--text-color);
 }
 
 input[type="range"] {
