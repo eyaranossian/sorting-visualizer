@@ -6,9 +6,8 @@ import {bubbleSort} from './SortingAlgorithms.js';
 const  BASE_COLOR = 'rgb(60, 166, 236)';
 const  PRIMARY_COLOR = 'green';
 const  SECONDARY_COLOR = 'red';
-const  SORTED_COLOR = 'rgba(169, 92, 232, 0.8)';
+//const  SORTED_COLOR = 'rgba(169, 92, 232, 0.8)';
 const  NUMBER_OF_BARS = 100;
-const  ANIMATION_SPEED_MS = 100;
 
 class SortingVisualizer extends React.Component {
     
@@ -104,7 +103,7 @@ class SortingVisualizer extends React.Component {
     }
 
     resetArray(nbrBar){
-        if(nbrBar == 0){
+        if(nbrBar === 0){
             nbrBar = NUMBER_OF_BARS
         }
         const array = []; 
@@ -113,7 +112,7 @@ class SortingVisualizer extends React.Component {
         }
         this.setState({array}); 
     }
-
+ 
     render() { 
 
         const {array} = this.state; 
