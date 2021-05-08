@@ -112,7 +112,6 @@ class SortingVisualizer extends React.Component {
         }
         this.setState({array}); 
     }
- 
     render() { 
 
         const {array} = this.state; 
@@ -130,7 +129,7 @@ class SortingVisualizer extends React.Component {
                     
                     <input 
                         type="range"
-                        min="0" 
+                        min="2" 
                         max="100"
                         onChange={(e) => this.handleChange(e)}
                     /> 
