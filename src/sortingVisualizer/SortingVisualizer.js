@@ -3,6 +3,11 @@ import './SortingVisualizer.css';
 import {bubbleSort} from './SortingAlgorithms.js'; 
 
 
+const  PRIMARY_COLOR = '';
+const  SECONDARY_COLOR = '';
+const  SORTED_COLOR = '';
+const  NUMBER_OF_BARS = 100;
+
 class SortingVisualizer extends React.Component {
     
     constructor(props) {
@@ -17,29 +22,43 @@ class SortingVisualizer extends React.Component {
     }
 
     bubbleSort(){
-        //const sortedArrayFromJs = this.state.array.slice().sort((a,b) => a-b);
+        
         const animations = bubbleSort(this.state.array);
         
-        
-        for(let i=0; i<animations.length;i++){
-
+        console.log(animations); 
+    
             for(let j=0; j<animations.length;j++){
 
-            const arrayBars = document.getElementsByClassName('bar');
-            
-            const[barIdxOne, barIdxTwo] = animations[j]; 
-
-            let barStyleOne = arrayBars[barIdxOne].style; 
-            let barStyleTwo = arrayBars[barIdxTwo].style; 
-
-             setTimeout(() => { 
+                const arrayBars = document.getElementsByClassName('bar');
                 
-                barStyleOne.backgroundColor = 'red';    
-                barStyleTwo.backgroundColor = 'red';
+                const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
+                
+                let barStyleOne = arrayBars[barIdxOne].style; 
+                let barStyleTwo = arrayBars[barIdxTwo].style; 
 
-                }, 500);
+                setTimeout(() => { 
+
+                    if(j !== 0){
+                        const[prevBarIdxOne, prevBarIdxTwo] = animations[j-1]; 
+                    
+                        let prevBarStyleOne = arrayBars[prevBarIdxOne].style; 
+                        let prevBarStyleTwo = arrayBars[prevBarIdxTwo].style; 
+                            
+                        prevBarStyleOne.backgroundColor = 'rgb(60, 166, 236)';    
+                        prevBarStyleTwo.backgroundColor = 'rgb(60, 166, 236)';    
+                    }   
+
+                    barStyleOne.backgroundColor = 'red';    
+                    barStyleTwo.backgroundColor = 'red';
+
+                    if(swapped){
+                        let temp = barStyleOne.height; 
+                        barStyleOne.height = barStyleTwo.height;    
+                        barStyleTwo.height = temp;        
+                    }
+
+                }, j * 10);
             }
-        }
 
         //Not correct anymore because bubbleSort returns an array of animations 
         //console.log(isArrayAreEquals(sortedArrayFromJs, sortedArray)); 
@@ -55,7 +74,7 @@ class SortingVisualizer extends React.Component {
 
     resetArray(){
         const array = []; 
-        for(let i=0; i<100; i++){
+        for(let i=0; i<50; i++){
             array.push(randomIntFromInterval(5, 730))
         }
         this.setState({array}); 

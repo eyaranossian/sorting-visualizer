@@ -28,22 +28,27 @@ export function bubbleSort(array){
 
     let auxArray = array.slice(); 
     let size = auxArray.length; 
-    console.log("Size "+size);
+    
     for(let i=0; i < size-1; i++){
-        let swapped = false; 
-        
-        animations.push([i,i+1]); 
-
+        let globalSwapped = false; 
         for(let j=0; j < (size-1); j++){
+
+            let swapped = false; 
+
             if(auxArray[j] > auxArray[j+1]){
                 let temp = auxArray[j];
                 auxArray[j] = auxArray[j+1];
                 auxArray[j+1] = temp; 
                 swapped = true; 
+                globalSwapped = true; 
             }
+            animations.push([j,j+1, swapped]); 
         }
-      /*   if (swapped !== true)
-            break;  */
+        if (globalSwapped !== true)
+            break; 
     }
+    console.log(array);
+    console.log(auxArray);
+
     return animations; 
 }
