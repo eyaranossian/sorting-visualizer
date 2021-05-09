@@ -1,4 +1,4 @@
-export function bubbleSort(array){
+export function getBubbleSortAnimations(array){
     /* Instead of returning array of sorted value, will return an array of animations*/         
         let animations = []; 
     
@@ -94,3 +94,55 @@ function merge(array, start, mid, end, auxArray, animations){
         array[k++] = auxArray[j++];  
     }
 } 
+
+export function getQuickSortAnimations(array){
+    
+    if(array.length <= 1)
+        return array;
+    const animations = [];
+
+        quickSort(array, 0, array.length-1, animations); 
+
+    return animations; 
+}
+
+function quickSort(array, start, end, animations){
+
+    if(start < end){
+        let pivot = partition(array, start, end, animations); 
+
+        quickSort(array, start, pivot-1, animations); 
+        quickSort(array, pivot+1, end, animations); 
+    }
+    return  array; 
+}
+
+function partition(array, start, end, animations){
+
+    let pivot = array[end]; 
+    let i = (start -1); 
+
+    let isSwapped; 
+    for(let j=start; j < end; j++){
+        
+        isSwapped = false;
+        if(array[j] <= pivot){
+            i++; 
+
+            let temp = array[i]; 
+            array[i] = array[j]; 
+            array[j] = temp;  
+            isSwapped = true; 
+        }
+        animations.push([end, j, isSwapped, 1]);
+        animations.push([end, j, isSwapped, 2]);
+        animations.push([i === -1 ? 0 : i, j, isSwapped, 3]);
+    }
+    let temp = array[i+1]; 
+    array[i+1] = array[end]; 
+    array[end] = temp; 
+
+    animations.push([i+1, end, isSwapped, 4]);
+
+    return (i+1); 
+}

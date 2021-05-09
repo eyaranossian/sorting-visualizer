@@ -1,9 +1,13 @@
 @import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext");
 
+:root {
+  --bg-color: rgb(52 52 53);
+}
+
 .App {
   margin: auto 0;
   text-align: center;
-  background-color: rgb(216, 216, 224);
+  background-color: var(--bg-color);
 }
 
 html,
@@ -14,5 +18,5 @@ body {
 
 footer {
   height: 50em;
-  background-color: rgb(216, 216, 224);
+  background-color: var(--bg-color);
 }
