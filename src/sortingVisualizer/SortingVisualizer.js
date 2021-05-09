@@ -33,45 +33,27 @@ class SortingVisualizer extends React.Component {
             for(let j=0; j<animations.length;j++){
                 setTimeout(() => { 
                     const arrayBars = document.getElementsByClassName('bar');
-        
                     const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
 
-                    //Reset to base color previous bar
-                    if(j !== 0){
-                        const[prevBarIdxOne, prevBarIdxTwo] = animations[j-1]; 
-                    
-                        let prevBarStyleOne = arrayBars[prevBarIdxOne].style; 
-                        let prevBarStyleTwo = arrayBars[prevBarIdxTwo].style; 
+                    const isColorChange = j % 4 !== 2; 
+                    const barStyleOne = arrayBars[barIdxOne].style; 
+                    const barStyleTwo = arrayBars[barIdxTwo].style; 
+            
+                    if(isColorChange){
+                        const color = j % 4 === 1 ? PRIMARY_COLOR : BASE_COLOR; 
+                        //highlight consider bar with right color
+                        barStyleOne.backgroundColor = color;    
+                        barStyleTwo.backgroundColor = color;      
+                    } else{
+                        // if swapped - change hightlight color and swap height
+                        if(swapped){
+                            barStyleOne.backgroundColor = SECONDARY_COLOR;    
+                            barStyleTwo.backgroundColor = SECONDARY_COLOR;
                             
-                        prevBarStyleOne.backgroundColor = BASE_COLOR;    
-                        prevBarStyleTwo.backgroundColor = BASE_COLOR;    
-                    }   
-                    //highlight consider bar 
-                    let barStyleOne = arrayBars[barIdxOne].style; 
-                    let barStyleTwo = arrayBars[barIdxTwo].style; 
-                    barStyleOne.backgroundColor = PRIMARY_COLOR;    
-                    barStyleTwo.backgroundColor = PRIMARY_COLOR;      
-                    
-                    // if swapped - change hightlight color and swap height
-                    if(swapped){
-        
-                        barStyleOne.backgroundColor = SECONDARY_COLOR;    
-                        barStyleTwo.backgroundColor = SECONDARY_COLOR;
-                        
-                        let temp = barStyleOne.height; 
-                        barStyleOne.height = barStyleTwo.height;    
-                        barStyleTwo.height = temp;      
-                    }
-
-                    //to clean color on the last 2 considered bars 
-                    if( j === (animations.length-1)){
-                        const[prevBarIdxOne, prevBarIdxTwo] = animations[j]; 
-                    
-                        let prevBarStyleOne = arrayBars[prevBarIdxOne].style; 
-                        let prevBarStyleTwo = arrayBars[prevBarIdxTwo].style; 
-                            
-                        prevBarStyleOne.backgroundColor = BASE_COLOR;    
-                        prevBarStyleTwo.backgroundColor = BASE_COLOR;    
+                            let temp = barStyleOne.height; 
+                            barStyleOne.height = barStyleTwo.height;    
+                            barStyleTwo.height = temp;     
+                        }
                     }
                 }, j * this.state.animationSpeed);
             }

@@ -16,7 +16,14 @@ export function bubbleSort(array){
                     swapped = true; 
                     sorted = false; 
                 }
+                //color change 
+                animations.push([j,j+1]); 
+                //put back to normal 
+                animations.push([j,j+1]); 
+                //for the swap 
                 animations.push([j,j+1, swapped]); 
+                //put back to normal 
+                animations.push([j,j+1]); 
             }
         }
         return animations; 
