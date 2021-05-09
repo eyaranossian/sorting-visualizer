@@ -40,7 +40,7 @@
 }
 
 .title:hover {
-  color: var(--btn-color);
+  color: #bb46ca;
   text-shadow: 1px 1px 1px rgb(252, 252, 252);
 }
 

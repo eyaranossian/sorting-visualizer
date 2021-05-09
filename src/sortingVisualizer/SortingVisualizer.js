@@ -37,36 +37,34 @@ class SortingVisualizer extends React.Component {
     bubbleSort(){
         const animations = getBubbleSortAnimations(this.state.array);    
         for(let j=0; j<animations.length;j++){
-                setTimeout(() => { 
-                    const arrayBars = document.getElementsByClassName('bar');
-                    const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
+            setTimeout(() => { 
+                const arrayBars = document.getElementsByClassName('bar');
+                const[barIdxOne, barIdxTwo, swapped] = animations[j]; 
 
-                    const isColorChange = j % 4 !== 2; 
-                    const barStyleOne = arrayBars[barIdxOne].style; 
-                    const barStyleTwo = arrayBars[barIdxTwo].style; 
-            
-                    if(isColorChange){
-                        const color = j % 4 === 1 ? PRIMARY_COLOR : BASE_COLOR; 
-                        //highlight consider bar with right color
-                        barStyleOne.backgroundColor = color;    
-                        barStyleTwo.backgroundColor = color;      
-                    } else{
-                        // if swapped - change hightlight color and swap height
-                        if(swapped){
-                            barStyleOne.backgroundColor = SECONDARY_COLOR;    
-                            barStyleTwo.backgroundColor = SECONDARY_COLOR;
-                            
-                            let temp = barStyleOne.height; 
-                            barStyleOne.height = barStyleTwo.height;    
-                            barStyleTwo.height = temp;     
-                        }
+                const isColorChange = j % 4 !== 2; 
+                const barStyleOne = arrayBars[barIdxOne].style; 
+                const barStyleTwo = arrayBars[barIdxTwo].style; 
+        
+                if(isColorChange){
+                    const color = j % 4 === 1 ? PRIMARY_COLOR : BASE_COLOR; 
+                    //highlight consider bar with right color
+                    barStyleOne.backgroundColor = color;    
+                    barStyleTwo.backgroundColor = color;      
+                } else{
+                    // if swapped - change hightlight color and swap height
+                    if(swapped){
+                        barStyleOne.backgroundColor = SECONDARY_COLOR;    
+                        barStyleTwo.backgroundColor = SECONDARY_COLOR;
+                        
+                        let temp = barStyleOne.height; 
+                        barStyleOne.height = barStyleTwo.height;    
+                        barStyleTwo.height = temp;     
                     }
-                }, j * this.state.animationSpeed);
-            }
+                }
+            }, j * this.state.animationSpeed);
+        }
     }
-
     mergeSort(){
-
         const animations = getMergeSortAnimations(this.state.array); 
         for(let j = 0; j < animations.length; j++){
             
