@@ -1,6 +1,6 @@
 import React from 'react'; 
 import './SortingVisualizer.css'; 
-import {bubbleSort, getMergeSortAnimations, getMergeSortAnimationsAlternate} from './SortingAlgorithms.js'; 
+import {bubbleSort, getMergeSortAnimations} from './SortingAlgorithms.js'; 
 
 
 const  BASE_COLOR = 'rgb(60, 166, 236)';
@@ -168,7 +168,7 @@ class SortingVisualizer extends React.Component {
     }
 }
 
-function isArrayAreEquals(array1, array2){
+/* function isArrayAreEquals(array1, array2){
     
     console.log("Sort from JS");
     console.log(array1);
@@ -186,7 +186,7 @@ function isArrayAreEquals(array1, array2){
             return false;
     }
     return true;
-}
+} */
 
 function randomIntFromInterval(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min); 
