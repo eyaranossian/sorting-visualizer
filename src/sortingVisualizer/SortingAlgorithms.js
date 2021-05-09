@@ -22,14 +22,14 @@ export function bubbleSort(array){
         return animations; 
 }
 
-export function getMergeSortAnimations(array, start, end){
+export function getMergeSortAnimations(array){
 
     if(array.length <= 1)
         return array;
     const auxArray = array.slice(); 
-    let animations = [];
+    const animations = [];
 
-    mergetSort(array, start, end, auxArray, animations); 
+    mergetSort(array, 0, array.length-1, auxArray, animations); 
 
     return animations; 
 }
@@ -37,11 +37,11 @@ export function getMergeSortAnimations(array, start, end){
 function mergetSort(array, start, end, auxArray, animations){
 
     if(start < end){
-        let mid =  Math.floor((start+end) / 2); 
-
-        mergetSort(array, start, mid, auxArray, animations); 
-        mergetSort(array, mid+1, end, auxArray, animations); 
-    
+        
+        const mid =  Math.floor((start+end) / 2);
+        
+        mergetSort(auxArray, start, mid, array, animations);
+        mergetSort(auxArray, mid+1, end, array, animations); 
         merge(array, start, mid, end, auxArray, animations);    
     }
 }
@@ -49,19 +49,17 @@ function mergetSort(array, start, end, auxArray, animations){
 function merge(array, start, mid, end, auxArray, animations){
     
     let i = start; 
-    let j = mid; 
+    let j = mid+1; 
     let k = start; 
 
-    while (i < (mid -1) && j < end){
+    while (i <= mid && j <= end){
 
         //2 idx that we consider in the main array // to change their color
         animations.push([i, j]); 
-
         //2 idx that we consider in the main array // to change back their color 
         animations.push([i, j]); 
     
         if(auxArray[i] <= auxArray[j]){
-            
             //push the new value for the targeted id 
             animations.push([k, auxArray[i]]); 
             array[k++] = auxArray[i++]; 
@@ -72,8 +70,7 @@ function merge(array, start, mid, end, auxArray, animations){
             array[k++] = auxArray[j++];   
         } 
     }
-
-    while (i <= (mid -1)){
+    while (i <= mid){
 
         animations.push([i, i]); 
         animations.push([i, i]); 
@@ -81,7 +78,6 @@ function merge(array, start, mid, end, auxArray, animations){
 
         array[k++] = auxArray[i++];  
     }
-
     while (j <= end){
 
         animations.push([j, j]); 
@@ -90,4 +86,4 @@ function merge(array, start, mid, end, auxArray, animations){
 
         array[k++] = auxArray[j++];  
     }
-}
+} 

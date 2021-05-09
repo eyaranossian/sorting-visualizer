@@ -1,6 +1,6 @@
 import React from 'react'; 
 import './SortingVisualizer.css'; 
-import {bubbleSort, getMergeSortAnimations} from './SortingAlgorithms.js'; 
+import {bubbleSort, getMergeSortAnimations, getMergeSortAnimationsAlternate} from './SortingAlgorithms.js'; 
 
 
 const  BASE_COLOR = 'rgb(60, 166, 236)';
@@ -80,12 +80,12 @@ class SortingVisualizer extends React.Component {
     }
 
     mergeSort(){
-        const {array} = this.state; 
-        const animations = getMergeSortAnimations(array, 0, array.length-1); 
-        
+        const animations = getMergeSortAnimations(this.state.array); 
+    
+        console.log(animations);
         //console.log(isArrayAreEquals(array.sort((a,b)=> a-b), animations)); 
 
-        for(let j=0; j<animations.length; j++){
+        for(let j = 0; j < animations.length; j++){
             
                 const arrayBars = document.getElementsByClassName('bar');
                 const isColorChange = j % 3 !== 2; 
@@ -93,8 +93,8 @@ class SortingVisualizer extends React.Component {
                 if(isColorChange){
                     const[barIdxOne, barIdxTwo] = animations[j]; 
                     //highlight consider bar   
-                    let barStyleOne = arrayBars[barIdxOne].style; 
-                    let barStyleTwo = arrayBars[barIdxTwo].style; 
+                    const barStyleOne = arrayBars[barIdxOne].style; 
+                    const barStyleTwo = arrayBars[barIdxTwo].style; 
 
                     const color = j % 3 === 0 ? SECONDARY_COLOR : BASE_COLOR; 
                     setTimeout(() => { 
@@ -105,12 +105,11 @@ class SortingVisualizer extends React.Component {
                 else {
                     setTimeout(() => { 
                         const[barIdxTarget, newHeight] = animations[j]; 
-                        let barStyleTarget = arrayBars[barIdxTarget].style; 
+                        const barStyleTarget = arrayBars[barIdxTarget].style; 
                         barStyleTarget.height = newHeight+'px'; 
                     }, j * this.state.animationSpeed);
-                }            
+                }    
         }
-        console.log(animations);
     }
 
     quickSort(){
