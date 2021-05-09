@@ -16,13 +16,23 @@ class SortingVisualizer extends React.Component {
             array: [], 
             active: true,
             animationSpeed : 10,
-            barWidth : 6
+            barWidth : 6, 
+            windowWidth: window.innerWidth
         }
     }
 
     componentDidMount(){
         this.resetArray(0); 
+        window.addEventListener("resize", this.handleResize);
     }
+    
+    componentWillUnmount() {
+        window.addEventListener("resize", this.handleResize);
+    }  
+
+   handleResize = (e) => {
+     this.setState({ windowWidth: window.innerWidth });
+    };
     
     bubbleSort(){
         this.toggleBtn(); 
@@ -109,7 +119,7 @@ class SortingVisualizer extends React.Component {
     handleChange(e){
         const valueFromInput = e.currentTarget.valueAsNumber;
         const animationSpeed = 131 - (valueFromInput)
-        const barWidth = 300 / (valueFromInput);
+        const barWidth = (300 / (valueFromInput)) * (this.state.windowWidth/1000);
 
         this.setState({animationSpeed})
         this.resetArray(valueFromInput); 
