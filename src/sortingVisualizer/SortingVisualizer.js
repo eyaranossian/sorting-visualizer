@@ -35,8 +35,6 @@ class SortingVisualizer extends React.Component {
     };
     
     bubbleSort(){
-        this.toggleBtn(); 
-
         const animations = getBubbleSortAnimations(this.state.array);    
         for(let j=0; j<animations.length;j++){
                 setTimeout(() => { 
@@ -65,53 +63,46 @@ class SortingVisualizer extends React.Component {
                     }
                 }, j * this.state.animationSpeed);
             }
-        this.toggleBtn(); 
     }
 
     mergeSort(){
-        const animations = getMergeSortAnimations(this.state.array); 
-    
-        console.log(animations);
-        //console.log(isArrayAreEquals(array.sort((a,b)=> a-b), animations)); 
 
+        const animations = getMergeSortAnimations(this.state.array); 
         for(let j = 0; j < animations.length; j++){
             
-                const arrayBars = document.getElementsByClassName('bar');
-                const isColorChange = j % 3 !== 2; 
+            const arrayBars = document.getElementsByClassName('bar');
+            const isColorChange = j % 3 !== 2; 
 
-                if(isColorChange){
-                    const[barIdxOne, barIdxTwo] = animations[j]; 
-                    //highlight consider bar   
-                    const barStyleOne = arrayBars[barIdxOne].style; 
-                    const barStyleTwo = arrayBars[barIdxTwo].style; 
+            if(isColorChange){
+                const[barIdxOne, barIdxTwo] = animations[j];  
+                                   //highlight consider bar   
+                const barStyleOne = arrayBars[barIdxOne].style; 
+                const barStyleTwo = arrayBars[barIdxTwo].style; 
 
-                    const color = j % 3 === 0 ? SECONDARY_COLOR : BASE_COLOR; 
-                    setTimeout(() => { 
-                        barStyleOne.backgroundColor = color; 
-                        barStyleTwo.backgroundColor = color; 
-                    }, j * this.state.animationSpeed);
-                } 
-                else {
-                    setTimeout(() => { 
-                        const[barIdxTarget, newHeight] = animations[j]; 
-                        const barStyleTarget = arrayBars[barIdxTarget].style; 
-                        barStyleTarget.height = newHeight+'px'; 
-                    }, j * this.state.animationSpeed);
-                }    
+                const color = j % 3 === 0 ? SECONDARY_COLOR : BASE_COLOR; 
+                setTimeout(() => { 
+                    barStyleOne.backgroundColor = color; 
+                    barStyleTwo.backgroundColor = color; 
+                }, j * this.state.animationSpeed);
+            } 
+            else {
+                setTimeout(() => { 
+                    const[barIdxTarget, newHeight] = animations[j]; 
+                    const barStyleTarget = arrayBars[barIdxTarget].style; 
+                    barStyleTarget.height = newHeight+'px'; 
+                }, j * this.state.animationSpeed);
+            }    
         }
     }
 
     quickSort(){
-        console.log(this.state.array.length) ; 
         const animations = getQuickSortAnimations(this.state.array);
-        console.log(animations); 
         for(let j = 0; j < animations.length; j++){
         
             const arrayBars = document.getElementsByClassName('bar');
             const[idx1, idx2, isSwapped, part] = animations[j]; 
 
-            if(part > 0 && part <= 3){
-                //const isColorChange = j % 3 !== 2; 
+            if(part !== 4){
                 if(part > 0 && part <= 2){
                   
                     //highlight consider bar        
@@ -170,6 +161,7 @@ class SortingVisualizer extends React.Component {
         this.resetArray(valueFromInput); 
         this.setState({barWidth})
     }
+    
     resetArray(nbrBar){
         if(nbrBar === 0){
             nbrBar = NUMBER_OF_BARS

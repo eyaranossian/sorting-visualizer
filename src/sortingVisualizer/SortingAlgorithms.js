@@ -136,13 +136,13 @@ function partition(array, start, end, animations){
         }
         animations.push([end, j, isSwapped, 1]);
         animations.push([end, j, isSwapped, 2]);
-        animations.push([i === -1 ? 0 : i, j, isSwapped, 3]);
+        animations.push([i === -1 ? 0 : i, j, isSwapped, 3]); //check on -1 for use case :  first iteration with no swap, i still = -1 
     }
     let temp = array[i+1]; 
     array[i+1] = array[end]; 
     array[end] = temp; 
 
-    animations.push([i+1, end, isSwapped, 4]);
+    animations.push([i+1, end, 4]); 
 
     return (i+1); 
 }
