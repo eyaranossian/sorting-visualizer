@@ -6,8 +6,7 @@ import {bubbleSort, getMergeSortAnimations, getMergeSortAnimationsAlternate} fro
 const  BASE_COLOR = 'rgb(60, 166, 236)';
 const  PRIMARY_COLOR = 'green';
 const  SECONDARY_COLOR = 'red';
-//const  SORTED_COLOR = 'rgba(169, 92, 232, 0.8)';
-const  NUMBER_OF_BARS = 100;
+const  NUMBER_OF_BARS = 65;
 
 class SortingVisualizer extends React.Component {
     
@@ -16,14 +15,15 @@ class SortingVisualizer extends React.Component {
         this.state = {  
             array: [], 
             active: true,
-            animationSpeed : 10
+            animationSpeed : 10,
+            barWidth : 6
         }
     }
 
     componentDidMount(){
         this.resetArray(0); 
     }
-
+    
     bubbleSort(){
         this.toggleBtn(); 
 
@@ -107,11 +107,14 @@ class SortingVisualizer extends React.Component {
     }
 
     handleChange(e){
-        let animationSpeed = 101 - (e.currentTarget.valueAsNumber)
-        this.setState({animationSpeed})
-        this.resetArray(e.currentTarget.valueAsNumber); 
-    }
+        const valueFromInput = e.currentTarget.valueAsNumber;
+        const animationSpeed = 131 - (valueFromInput)
+        const barWidth = 300 / (valueFromInput);
 
+        this.setState({animationSpeed})
+        this.resetArray(valueFromInput); 
+        this.setState({barWidth})
+    }
     resetArray(nbrBar){
         if(nbrBar === 0){
             nbrBar = NUMBER_OF_BARS
@@ -141,7 +144,7 @@ class SortingVisualizer extends React.Component {
                     <input 
                         type="range"
                         min="2" 
-                        max="100"
+                        max="130"
                         onChange={(e) => this.handleChange(e)}
                     /> 
                 </div> 
@@ -156,7 +159,7 @@ class SortingVisualizer extends React.Component {
 
             <div className="bar-wrapper"> 
             {array.map((value, idx) => (
-                    <div className="bar" key={idx}  style={{height: value + 'px'}}> </div>            
+                    <div className="bar" key={idx}  style={{height: value + 'px', width: this.state.barWidth +'px'}}> </div>            
                 ))}
             </div>
             <footer> </footer>
